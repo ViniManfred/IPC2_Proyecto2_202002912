@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<listaEmpresas>
+    <empresa id="1">
+        <nombre>Cerveceria Centroamericana</nombre>
+        <abreviatura>Gallo</abreviatura>
+        <listaPuntosAtencion>
+            <puntoAtencion id="1">
+                <nombre>El cerrito</nombre>
+                <direccion>Zona 2 Guatemala</direccion>
+                <listaEscritorios>
+                    <escritorio id="1">
+                        <identificacion>f</identificacion>
+                        <encargado>Lucas Guevara</encargado>
+                    </escritorio>
+                    <escritorio id="2">
+                        <identificacion>g</identificacion>
+                        <encargado>Pedro Salinas</encargado>
+                    </escritorio>
+                    <escritorio id="3">
+                        <identificacion>h</identificacion>
+                        <encargado>Oscar Leal</encargado>
+                    </escritorio>
+                    <escritorio id="4">
+                        <identificacion>i</identificacion>
+                        <encargado>Remedios</encargado>
+                    </escritorio>
+                    <escritorio id="5">
+                        <identificacion>j</identificacion>
+                        <encargado>Luz Catrina</encargado>
+                    </escritorio>
+                    <escritorio id="6">
+                        <identificacion>activo</identificacion>
+                        <encargado>Saul Cornejo</encargado>
+                    </escritorio>
+                </listaEscritorios>
+            </puntoAtencion>
+            <puntoAtencion id="2">
+                <nombre>La sexta</nombre>
+                <direccion>Zona 1 Guatemala</direccion>
+                <listaEscritorios>
+                    <escritorio id="1">
+                        <identificacion>a</identificacion>
+                        <encargado>Marta Lucia</encargado>
+                    </escritorio>
+                    <escritorio id="2">
+                        <identificacion>b</identificacion>
+                        <encargado>Javier Lopez</encargado>
+                    </escritorio>
+                    <escritorio id="3">
+                        <identificacion>c</identificacion>
+                        <encargado>Oscar Guerrero</encargado>
+                    </escritorio>
+                    <escritorio id="4">
+                        <identificacion>d</identificacion>
+                        <encargado>Rosa Maria</encargado>
+                    </escritorio>
+                    <escritorio id="5">
+                        <identificacion>e</identificacion>
+                        <encargado>Carmen de Leon</encargado>
+                    </escritorio>
+                </listaEscritorios>
+            </puntoAtencion>
+        </listaPuntosAtencion>
+        <listaTransacciones>
+            <transaccion id="1">
+                <nombre>Compra</nombre>
+                <tiempoAtencion>10</tiempoAtencion>
+            </transaccion>
+            <transaccion id="2">
+                <nombre>Cambio</nombre>
+                <tiempoAtencion>5</tiempoAtencion>
+            </transaccion>
+            <transaccion id="3">
+                <nombre>Preferencia</nombre>
+                <tiempoAtencion>7</tiempoAtencion>
+            </transaccion>
+            <transaccion id="4">
+                <nombre>Carga</nombre>
+                <tiempoAtencion>17</tiempoAtencion>
+            </transaccion>
+        </listaTransacciones>
+    </empresa>
+    <empresa id="2">
+        <nombre>MegaPaca</nombre>
+        <abreviatura>MP</abreviatura>
+        <listaPuntosAtencion>
+            <puntoAtencion id="1">
+                <nombre>Reformita</nombre>
+                <direccion>Zona 12 Guatemala</direccion>
+                <listaEscritorios>
+                    <escritorio id="1">
+                        <identificacion>1</identificacion>
+                        <encargado>Lucas Guevara</encargado>
+                    </escritorio>
+                    <escritorio id="2">
+                        <identificacion>2</identificacion>
+                        <encargado>Pedro Salinas</encargado>
+                    </escritorio>
+                    <escritorio id="3">
+                        <identificacion>3</identificacion>
+                        <encargado>Oscar Leal</encargado>
+                    </escritorio>
+                    <escritorio id="4">
+                        <identificacion>4</identificacion>
+                        <encargado>Remedios</encargado>
+                    </escritorio>
+                    <escritorio id="5">
+                        <identificacion>5</identificacion>
+                        <encargado>Luz Catrina</encargado>
+                    </escritorio>
+                    <escritorio id="6">
+                        <identificacion>6</identificacion>
+                        <encargado>Saul Cornejo</encargado>
+                    </escritorio>
+                </listaEscritorios>
+            </puntoAtencion>
+            <puntoAtencion id="2">
+                <nombre>Centro Palin</nombre>
+                <direccion>Zona 1 Escuintla</direccion>
+                <listaEscritorios>
+                    <escritorio id="1">
+                        <identificacion>7</identificacion>
+                        <encargado>Marta Lucia</encargado>
+                    </escritorio>
+                    <escritorio id="2">
+                        <identificacion>8</identificacion>
+                        <encargado>Javier Lopez</encargado>
+                    </escritorio>
+                    <escritorio id="3">
+                        <identificacion>9</identificacion>
+                        <encargado>Oscar Guerrero</encargado>
+                    </escritorio>
+                    <escritorio id="4">
+                        <identificacion>10</identificacion>
+                        <encargado>Rosa Maria</encargado>
+                    </escritorio>
+                    <escritorio id="5">
+                        <identificacion>11</identificacion>
+                        <encargado>Carmen de Leon</encargado>
+                    </escritorio>
+                </listaEscritorios>
+            </puntoAtencion>
+        </listaPuntosAtencion>
+        <listaTransacciones>
+            <transaccion id="1">
+                <nombre>tipo1</nombre>
+                <tiempoAtencion>10</tiempoAtencion>
+            </transaccion>
+            <transaccion id="2">
+                <nombre>tipo2</nombre>
+                <tiempoAtencion>5</tiempoAtencion>
+            </transaccion>
+            <transaccion id="3">
+                <nombre>tipo3</nombre>
+                <tiempoAtencion>12</tiempoAtencion>
+            </transaccion>
+            <transaccion id="4">
+                <nombre>tipo4</nombre>
+                <tiempoAtencion>7</tiempoAtencion>
+            </transaccion>
+            <transaccion id="5">
+                <nombre>tipo5</nombre>
+                <tiempoAtencion>3</tiempoAtencion>
+            </transaccion>
+        </listaTransacciones>
+    </empresa>
+</listaEmpresas>

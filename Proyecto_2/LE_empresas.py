@@ -1,27 +1,29 @@
-from puntos_atencion import Puntos_Atencion
+from empresas import Empresas
 from colorama import Fore
-class Lista_PA:
+
+class Lista_E:
     def __init__(self) -> None:
-        self.raiz = Puntos_Atencion()
-        self.ultimo = Puntos_Atencion()
+        self.raiz = Empresas()
+        self.ultimo = Empresas()
 
-    def append(self, nuevoPA):
-        if self.raiz.direccion is None:
-            self.raiz = nuevoPA
-            self.ultimo = nuevoPA
+    def append(self, nuevaE):
+        if self.raiz.nombre is None:
+            self.raiz = nuevaE
+            self.ultimo = nuevaE
         elif self.raiz.siguiente is None:
-            self.raiz.siguiente = nuevoPA
-            self.ultimo = nuevoPA
+            self.raiz.siguiente = nuevaE
+            self.ultimo = nuevaE
         else:
-            self.ultimo.siguiente = nuevoPA
-            self.ultimo = nuevoPA
-
+            self.ultimo.siguiente = nuevaE
+            self.ultimo = nuevaE
+        
     def printer(self):
         nodoAux1 = self.raiz
         cadena1 = ''
         while True:
             if nodoAux1.nombre is not None:
-                cadena1 += "ID: "+ nodoAux1.id + " Nombre: " + nodoAux1.nombre +" Direccion: "+nodoAux1.direccion+"\n          Escritorios\n"+nodoAux1.E_escritorios.printer()+"\n"
+
+                cadena1 += "ID: "+ nodoAux1.id + " Nombre: " + nodoAux1.nombre +" Abreviatura: "+nodoAux1.abreviatura +"\n          TRANSACCIONES\n"+nodoAux1.E_transacciones.print()+"\n          PUNTOS DE ATENCION\n"+nodoAux1.puntos_atencion.printer()
                 if nodoAux1.siguiente is not None:
                     nodoAux1 = nodoAux1.siguiente
                     cadena1 += " \n"
@@ -29,11 +31,11 @@ class Lista_PA:
                     break
             else:
                 break
-        return cadena1
+        print(cadena1)
 
     def print(self):
         nodoAux1 = self.raiz
-        cadena1 = Fore.MAGENTA+''
+        cadena1 = Fore.LIGHTBLUE_EX+''
         while True:
             if nodoAux1.nombre is not None:
                 cadena1 += str(nodoAux1.counter)+". "+nodoAux1.nombre
@@ -54,5 +56,3 @@ class Lista_PA:
             else:
                 return None
         return nodoAux
-    
-    

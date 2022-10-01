@@ -6,13 +6,13 @@ class Lista_CI_E:
         self.ultimo = CI_Escritorios()
 
     
-    def append(self, nuevoE):
+    def append(self, nuevoEA):
         if self.raiz.idEscritorio is None:
-            self.raiz = nuevoE
-            self.ultimo = nuevoE
+            self.raiz = nuevoEA
+            self.ultimo = nuevoEA
         elif self.raiz.siguiente is None:
-            self.raiz.siguiente = nuevoE
-            self.ultimo = nuevoE
+            self.raiz.siguiente = nuevoEA
+            self.ultimo = nuevoEA
         else:
-            self.ultimo.siguiente = nuevoE
-            self.ultimo = nuevoE
+            self.ultimo.siguiente = nuevoEA
+            self.ultimo = nuevoEA

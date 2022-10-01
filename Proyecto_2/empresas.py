@@ -1,11 +1,12 @@
 from LE_puntos_atencion import Lista_PA
 from LE_E_transacciones import Lista_E_T
 class Empresas:
-    def __init__(self, id = 0, nombre = None, abreviatura = None) -> None:
+    def __init__(self,counter=0, id = None, nombre = None, abreviatura = None) -> None:
+        self.counter = counter
         self.id = id
         self.nombre = nombre
         self.abreviatura = abreviatura
-        self.escritorios = Lista_PA()
-        self.clientes = Lista_E_T()
+        self.puntos_atencion = Lista_PA()
+        self.E_transacciones = Lista_E_T()
         self.siguiente = None
         

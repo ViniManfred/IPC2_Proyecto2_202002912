@@ -6,13 +6,13 @@ class Lista_CI_T:
         self.ultimo = CI_Transacciones()
 
     
-    def append(self, nuevaT):
+    def append(self, nuevaTI):
         if self.raiz.idTransaccion is None:
-            self.raiz = nuevaT
-            self.ultimo = nuevaT
+            self.raiz = nuevaTI
+            self.ultimo = nuevaTI
         elif self.raiz.siguiente is None:
-            self.raiz.siguiente = nuevaT
-            self.ultimo = nuevaT
+            self.raiz.siguiente = nuevaTI
+            self.ultimo = nuevaTI
         else:
-            self.ultimo.siguiente = nuevaT
-            self.ultimo = nuevaT
+            self.ultimo.siguiente = nuevaTI
+            self.ultimo = nuevaTI

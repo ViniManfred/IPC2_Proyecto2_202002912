@@ -5,9 +5,8 @@ class Lista_E_T:
         self.raiz = E_Transacciones()
         self.ultimo = E_Transacciones()
 
-    
     def append(self, nuevaT):
-        if self.raiz.id is None:
+        if self.raiz.nombre is None:
             self.raiz = nuevaT
             self.ultimo = nuevaT
         elif self.raiz.siguiente is None:
@@ -16,3 +15,20 @@ class Lista_E_T:
         else:
             self.ultimo.siguiente = nuevaT
             self.ultimo = nuevaT
+    
+    def print(self):
+        nodoAux1 = self.raiz
+        cadena1 = ''
+        while True:
+            if nodoAux1.nombre is not None:
+
+                cadena1 += "ID: "+ nodoAux1.id + " Nombre: " + nodoAux1.nombre +" Tiempo: "+str(nodoAux1.tiempoA)
+                if nodoAux1.siguiente is not None:
+                    nodoAux1 = nodoAux1.siguiente
+                    cadena1 += " \n"
+                else:
+                    break
+            else:
+                break
+        return cadena1
+    
