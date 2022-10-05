@@ -64,19 +64,19 @@
         <listaTransacciones>
             <transaccion id="1">
                 <nombre>Compra</nombre>
-                <tiempoAtencion>10</tiempoAtencion>
+                <tiempoAtencion>10.3</tiempoAtencion>
             </transaccion>
             <transaccion id="2">
                 <nombre>Cambio</nombre>
-                <tiempoAtencion>5</tiempoAtencion>
+                <tiempoAtencion>7.5</tiempoAtencion>
             </transaccion>
             <transaccion id="3">
                 <nombre>Preferencia</nombre>
-                <tiempoAtencion>7</tiempoAtencion>
+                <tiempoAtencion>4</tiempoAtencion>
             </transaccion>
             <transaccion id="4">
                 <nombre>Carga</nombre>
-                <tiempoAtencion>17</tiempoAtencion>
+                <tiempoAtencion>3.33</tiempoAtencion>
             </transaccion>
         </listaTransacciones>
     </empresa>

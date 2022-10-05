@@ -1,16 +1,69 @@
 <?xml version="1.0"?>
 <listadoInicial>
-    <configInicial id="$codigoConfiguracion" idEmpresa="$codEmpresa" idPunto="$codPunto">
+    <configInicial id="1" idEmpresa="1" idPunto="1">
         <escritoriosActivos>
-            <escritorio idEscritorio="$codEscritorio"/>
-            <escritorio idEscritorio="$codEscritorio"/>
+            <escritorio idEscritorio="3"/>
+            <escritorio idEscritorio="2"/>
         </escritoriosActivos>
         <listadoClientes>
-            <cliente dpi="$DPI">
-                <nombre> $nombreCliente </nombre>
+            <cliente dpi="3311167741294">
+                <nombre>angel</nombre>
                 <listadoTransacciones>
-                    <transaccion idTransaccion="$codTrans" cantidad="cantTrans"/>
-                    <transaccion idTransaccion="$codTrans" cantidad="cantTrans"/>
+                    <transaccion idTransaccion="1" cantidad="3"/>
+                    <transaccion idTransaccion="2" cantidad="2"/>
+                </listadoTransacciones>
+            </cliente>
+            <cliente dpi="3123167744321">
+                <nombre>jose</nombre>
+                <listadoTransacciones>
+                    <transaccion idTransaccion="4" cantidad="4"/>
+                    <transaccion idTransaccion="2" cantidad="1"/>
+                </listadoTransacciones>
+            </cliente>
+            <cliente dpi="1111167741531">
+                <nombre>oscar</nombre>
+                <listadoTransacciones>
+                    <transaccion idTransaccion="1" cantidad="1"/>
+                    <transaccion idTransaccion="2" cantidad="1"/>
+                    <transaccion idTransaccion="3" cantidad="1"/>
+                    <transaccion idTransaccion="4" cantidad="1"/>
+                </listadoTransacciones>
+            </cliente>
+            <cliente dpi="2211167741777">
+                <nombre>filip</nombre>
+                <listadoTransacciones>
+                    <transaccion idTransaccion="2" cantidad="1"/>
+                    <transaccion idTransaccion="3" cantidad="4"/>
+                    <transaccion idTransaccion="4" cantidad="1"/>
+                </listadoTransacciones>
+            </cliente>
+            <cliente dpi="3322547741666">
+                <nombre>gustavo</nombre>
+                <listadoTransacciones>
+                    <transaccion idTransaccion="1" cantidad="1"/>
+                </listadoTransacciones>
+            </cliente>
+            <cliente dpi="3322547741222">
+                <nombre>matilde</nombre>
+                <listadoTransacciones>
+                    <transaccion idTransaccion="2" cantidad="1"/>
+                    <transaccion idTransaccion="2" cantidad="1"/>
+                </listadoTransacciones>
+            </cliente>
+            <cliente dpi="4422547741123">
+                <nombre>liliana</nombre>
+                <listadoTransacciones>
+                    <transaccion idTransaccion="3" cantidad="5"/>
+                    <transaccion idTransaccion="2" cantidad="4"/>
+                </listadoTransacciones>
+            </cliente>
+            <cliente dpi="5522547741321">
+                <nombre>ramiro</nombre>
+                <listadoTransacciones>
+                    <transaccion idTransaccion="1" cantidad="2"/>
+                    <transaccion idTransaccion="3" cantidad="3"/>
+                    <transaccion idTransaccion="2" cantidad="4"/>
+                    <transaccion idTransaccion="4" cantidad="5"/>
                 </listadoTransacciones>
             </cliente>
         </listadoClientes>

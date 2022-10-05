@@ -31,4 +31,13 @@ class Lista_E_T:
             else:
                 break
         return cadena1
+
+    def busquedaID(self,id):
+        nodoAux = self.raiz
+        while nodoAux.id!= id:
+            if nodoAux.siguiente is not None:
+                nodoAux = nodoAux.siguiente
+            else:
+                return None
+        return nodoAux.tiempoA
     

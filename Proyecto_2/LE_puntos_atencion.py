@@ -54,5 +54,14 @@ class Lista_PA:
             else:
                 return None
         return nodoAux
+
+    def busquedaID(self, id):
+        nodoAux = self.raiz
+        while nodoAux.id!= id:
+            if nodoAux.siguiente is not None:
+                nodoAux = nodoAux.siguiente
+            else:
+                return None
+        return nodoAux
     
     

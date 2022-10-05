@@ -1,22 +1,22 @@
-from clientes import Clientes
+from clientes_escritorio import Clientes_escritorio
 from colorama import Fore
 
-class Lista_C:
+class Lista_Clientes_escritorio:
     def __init__(self) -> None:
-        self.raiz = Clientes()
-        self.ultimo = Clientes()
+        self.raiz = Clientes_escritorio()
+        self.ultimo = Clientes_escritorio()
 
     
-    def append(self, nuevoC):
+    def append(self, nuevoCE):
         if self.raiz.dpi is None:
-            self.raiz = nuevoC
-            self.ultimo = nuevoC
+            self.raiz = nuevoCE
+            self.ultimo = nuevoCE
         elif self.raiz.siguiente is None:
-            self.raiz.siguiente = nuevoC
-            self.ultimo = nuevoC
+            self.raiz.siguiente = nuevoCE
+            self.ultimo = nuevoCE
         else:
-            self.ultimo.siguiente = nuevoC
-            self.ultimo = nuevoC
+            self.ultimo.siguiente = nuevoCE
+            self.ultimo = nuevoCE
         
     def print(self):
         nodoAux1 = self.raiz
