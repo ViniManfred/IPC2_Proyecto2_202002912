@@ -130,3 +130,5 @@ class Lista_C:
             else:
                 break
         return calcule
+
+    

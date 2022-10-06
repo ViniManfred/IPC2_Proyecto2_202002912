@@ -97,3 +97,26 @@ class Lista_E:
             else:
                 break
         print(cadena)
+
+    def print_activos(self):
+        nodoAux = self.raiz
+        while True:
+            if nodoAux.id is not None:
+                if nodoAux.estado == "activo":
+                    print(Fore.MAGENTA+" ID:"+nodoAux.id+"   Encargado:"+nodoAux.encargado)
+                    nodoAux.clientes_escritorio.print_data()
+                    print(Fore.MAGENTA+"----------------------------------")
+                    if nodoAux.siguiente is not None:
+                        nodoAux = nodoAux.siguiente
+                    else:
+                        break
+                else:
+                    if nodoAux.siguiente is not None:
+                        nodoAux = nodoAux.siguiente
+                    else:
+                        break
+            else:
+                break
+    
+    
+    

@@ -40,4 +40,29 @@ class Lista_E_T:
             else:
                 return None
         return nodoAux.tiempoA
+
+    def busquedaCounter(self,counter):
+        nodoAux = self.raiz
+        while nodoAux.counter!= counter:
+            if nodoAux.siguiente is not None:
+                nodoAux = nodoAux.siguiente
+            else:
+                return None
+        return nodoAux.tiempoA
+
+    def printer(self):
+        nodoAux1 = self.raiz
+        cadena1 = ''
+        while True:
+            if nodoAux1.nombre is not None:
+
+                cadena1 +=" "+str(nodoAux1.counter)+". "+nodoAux1.nombre
+                if nodoAux1.siguiente is not None:
+                    nodoAux1 = nodoAux1.siguiente
+                    cadena1 += " \n"
+                else:
+                    break
+            else:
+                break
+        print(cadena1)
     

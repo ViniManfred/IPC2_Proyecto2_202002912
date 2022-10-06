@@ -4,6 +4,7 @@
         <escritoriosActivos>
             <escritorio idEscritorio="3"/>
             <escritorio idEscritorio="2"/>
+            <escritorio idEscritorio="1"/>
         </escritoriosActivos>
         <listadoClientes>
             <cliente dpi="3311167741294">

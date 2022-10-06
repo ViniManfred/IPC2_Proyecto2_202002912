@@ -33,23 +33,6 @@ class Lista_Clientes_escritorio:
                 break
         print(cadena1)
 
-    def espera_promedio(self):
-        nodoAux1 = self.raiz
-        calcule = 0
-        while True:
-            if nodoAux1.nombre is not None:
-                calcule += nodoAux1.tiempo_espera
-                if nodoAux1.siguiente is not None:
-                    nodoAux1 = nodoAux1.siguiente
-                else:
-                    break
-            else:
-                break
-        div= self.ultimo
-        response=calcule/div.counter
-        myRoundNumber = round(response, 2)
-        return myRoundNumber
-
     def atencion_promedio(self):
         nodoAux1 = self.raiz
         calcule = 0
@@ -99,34 +82,8 @@ class Lista_Clientes_escritorio:
                 break
         return calcule
 
-    def espera_maxima(self):
-        nodoAux1 = self.raiz
-        calcule=0
-        while True:
-            if nodoAux1.nombre is not None:
-                if nodoAux1.tiempo_espera>calcule:
-                    calcule = nodoAux1.tiempo_espera
-                else:
-                    if nodoAux1.siguiente is not None:
-                        nodoAux1 = nodoAux1.siguiente
-                    else:
-                        break
-            else:
-                break
-        return calcule
-
-    def espera_minima(self):
-        nodoAux1 = self.raiz
-        calcule=1000000
-        while True:
-            if nodoAux1.nombre is not None:
-                if nodoAux1.tiempo_espera<calcule and nodoAux1.tiempo_espera!=0:
-                    calcule = nodoAux1.tiempo_espera
-                else:
-                    if nodoAux1.siguiente is not None:
-                        nodoAux1 = nodoAux1.siguiente
-                    else:
-                        break
-            else:
-                break
-        return calcule
+    def print_data(self):
+        dato1=self.atencion_promedio()
+        dato2=self.atencion_maxima()
+        dato3=self.atencion_minima()
+        print(Fore.MAGENTA+"Tiempo de atencion promedio:"+str(dato1)+"\n","Tiempo de atencion maxima:"+str(dato2)+"\n","Tiempo de atencion minima:"+str(dato3))

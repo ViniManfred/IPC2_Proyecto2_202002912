@@ -9,6 +9,7 @@ from E_transacciones import E_Transacciones
 from pila import Pila
 from clientes import Clientes
 from clientes_escritorio import Clientes_escritorio
+from cliente_escritorio_pila import Clientes_escritorio_pila
 from cola import Cola
 from LE_empresas import Lista_E
 import xml.etree.ElementTree as ET
@@ -57,29 +58,174 @@ class inicio:
                         print(Fore.CYAN+"  SOLUCIONES GUATEMALTECAS S.A.   ")
                         print(Fore.CYAN+"--------ACTIVAR ESCRITORIOS-------")
                         seleccionado.E_escritorios.print_inactivos()
+                        print(Fore.CYAN+" e. Volver")
                         print(Fore.CYAN+"----------------------------------")
                         track = input(Fore.CYAN+"Seleccione el escritorio que desea activar\n")
-                        encontrado = seleccionado.E_escritorios.busqueda_desactivos(int(track))
-                        while True:
-                            if encontrado is None:
-                                print(Fore.RED + "Error: Seleccione el escritorio correctamente.")
-                            else:
-                                nuevaPila = Pila(encontrado.counter,encontrado.id,encontrado.identificacion,encontrado.encargado,"activo")
-                                seleccionado.pila.append(nuevaPila)
-                                nuevoCE = Clientes_escritorio(seleccionado.cola.raiz.counter,seleccionado.cola.raiz.dpi,seleccionado.cola.raiz.nombre,seleccionado.cola.raiz.tiempo_atencion,seleccionado.cola.raiz.tiempo_espera)
-                                encontrado.clientes_escritorio.append(nuevoCE)
-                                seleccionado.cola.desencolar()
-                                print(Fore.GREEN+"Se ha activado el escritorio correctamente!")
-                                break
+                        if track=="e":
+                            break
+                        else:
+                            encontrado = seleccionado.E_escritorios.busqueda_desactivos(int(track))
+                            while True:
+                                if encontrado is None:
+                                    print(Fore.RED + "Error: Seleccione el escritorio correctamente.")
+                                else:
+                                    conta=seleccionado.pila.raiz.counter+1
+                                    nuevaPila = Pila(conta,encontrado.id,encontrado.identificacion,encontrado.encargado,"activo")
+                                    seleccionado.pila.append(nuevaPila)
+                                    seleccionado.pila.graficar()
+                                    if seleccionado.cola.raiz is not None:
+                                        contador=encontrado.clientes_escritorio.raiz.counter+1
+                                        nuevoCE = Clientes_escritorio(contador,seleccionado.cola.raiz.dpi,seleccionado.cola.raiz.nombre,seleccionado.cola.raiz.tiempo_atencion,seleccionado.cola.raiz.tiempo_espera)
+                                        encontrado.clientes_escritorio.append(nuevoCE)
+                                        contadorrr=nuevaPila.clientes_escritorio_pila.ultimo.counter+1
+                                        nuevoCE = Clientes_escritorio_pila(contadorrr,seleccionado.cola.raiz.dpi,seleccionado.cola.raiz.nombre,seleccionado.cola.raiz.tiempo_atencion,seleccionado.cola.raiz.tiempo_espera)
+                                        nuevaPila.clientes_escritorio_pila.append(nuevoCE)
+                                        seleccionado.cola.desencolar()
+                                        seleccionado.cola.graficar()
+                                        cracl=seleccionado.pila.proximo_atendido()
+                                        seleccionado.cola.raiz.tiempo_espera=cracl
+                                        seleccionado.cola.recalcular()
+                                        print(Fore.GREEN+"Se ha activado el escritorio correctamente!")
+                                        break
+                                    else:
+                                        print(Fore.GREEN+"No hay clientes por atender") 
+                                        break
                     elif opcion1=="3":
                         try:
-                            seleccionado.pila.desapilar()
-                            print(Fore.GREEN+"Se ha desactivado el escritorio correctamente!")
+                            back = seleccionado.pila.raiz.id
+                            value=seleccionado.E_escritorios.busquedaID(back)
+                            if value is None:
+                                print(Fore.RED + "Error: No se encontro el escritorio.")
+                            else:
+                                value.estado="inactivo"
+                                seleccionado.pila.desapilar()
+                                seleccionado.pila.graficar()
+                                print(Fore.GREEN+"Se ha desactivado el escritorio correctamente!")
                         except:
-                            print(Fore.RED+"No hay escritorios por desactivar.")
+                            print(Fore.RED+"No hay escritorios por desactivar")
                     elif opcion1=="4":
-                        seleccionado.pila.printer()
-                        encontrado.clientes_escritorio.print()
+                        try:
+                            self.pasar_cliente(seleccionado)
+                        except:
+                            print(Fore.GREEN+"No hay clientes por atender") 
+                    elif opcion1=="5":
+                        time=0
+                        while True:
+                            print(Fore.CYAN+"\n----------------------------------")
+                            print(Fore.CYAN+"  SOLUCIONES GUATEMALTECAS S.A.   ")
+                            print(Fore.CYAN+"-----------TRANSACCIONES----------")
+                            empresa1.E_transacciones.printer()
+                            print(Fore.CYAN+" e. Volver")
+                            print(Fore.CYAN+"----------------------------------")
+                            track = input(Fore.CYAN+"Desea agregar una transaccion a la lista:\n")
+                            if track=="e":
+                                break
+                            else:
+                                encontrado = empresa1.E_transacciones.busquedaCounter(int(track))
+                                time+=float(encontrado)
+                                myRoundNumber = round(time, 2)
+                        track1 = input(Fore.CYAN+"Ingrese su numero de DPI:\n")
+                        track2 = input(Fore.CYAN+"Ingrese su nombre:\n")
+                        contador3=seleccionado.clientes.ultimo.counter+1
+                        nuevoC = Clientes(contador3,track1, track2,myRoundNumber,0 )
+                        seleccionado.clientes.append(nuevoC)
+                        
+                        contador4=seleccionado.cola.ultimo.counter+1
+                        nuevaCola = Cola(contador4,track1, track2,myRoundNumber,0)
+                        seleccionado.cola.append(nuevaCola)
+                        seleccionado.cola.graficar()
+                        seleccionado.cola.recalcular()
+                        print(Fore.GREEN+"Tiempo de espera promedio:"+str(seleccionado.cola.ultimo.tiempo_espera)+" minutos.")
+                        seleccionado.clientes.ultimo.tiempo_espera=seleccionado.cola.ultimo.tiempo_espera
+                        print(Fore.GREEN+"Se ha registrado el nuevocliente con exito!")
+
+                    elif opcion1=="6":
+                        try:
+                            while True:
+                                self.pasar_cliente(seleccionado)
+                        except:
+                            print(Fore.GREEN+"Se ha completado la simulacion!")
+                            opcion1=""
+                            while opcion1 != "Break":
+                                print(Fore.YELLOW+"\n----------------------------------")
+                                print(Fore.YELLOW+"  SOLUCIONES GUATEMALTECAS S.A.   ")
+                                print(Fore.YELLOW+"---------VIZUALIZAR ESTADO--------")
+                                print(Fore.YELLOW+"  1. PUNTO DE ATENCION")
+                                print(Fore.YELLOW+"  2. ESCRITORIOS ACTIVOS")
+                                print(Fore.YELLOW+"  3. VOLVER")
+                                print(Fore.YELLOW+"----------------------------------")
+                                opcion1 = input(Fore.YELLOW+"Seleccione una opcion del menu \n")
+                                if opcion1 == '1':
+                                    opcion2=""
+                                    while opcion2 != "Break":
+                                        print(Fore.MAGENTA+"\n----------------------------------")
+                                        print(Fore.MAGENTA+"  SOLUCIONES GUATEMALTECAS S.A.   ")
+                                        print(Fore.MAGENTA+"-------PUNTO DE ANTENCION------")
+                                        print(Fore.MAGENTA+"  1. ESCRITORIOS")
+                                        print(Fore.MAGENTA+"  2. CLIENTES ATENDIDOS")
+                                        print(Fore.MAGENTA+"  3. GESTION DE TIEMPOS")
+                                        print(Fore.MAGENTA+"  4. VOLVER")
+                                        print(Fore.MAGENTA+"----------------------------------")
+                                        opcion2 = input(Fore.MAGENTA+"Seleccione una opcion del menu \n")
+                                        if opcion2 == '1':
+                                            activos=seleccionado.E_escritorios.busqueda_estado("activo")
+                                            inactivos=seleccionado.E_escritorios.busqueda_estado("inactivo")
+                                            print(Fore.CYAN+"\n----------------------------------")
+                                            print(Fore.CYAN+"            ESCRITORIOS           ")
+                                            print(Fore.CYAN+"----------------------------------")
+                                            print(Fore.CYAN+" Escritorios activos: ",activos)
+                                            print(Fore.CYAN+" Escritorios inactivos: ",inactivos)
+                                            print(Fore.CYAN+"----------------------------------")
+                                        elif opcion2=="2":
+                                            try:
+                                                print(Fore.CYAN+"\n----------------------------------")
+                                                print(Fore.CYAN+"       CLIENTES ATENDIDOS         ")
+                                                print(Fore.CYAN+"----------------------------------")
+                                                seleccionado.clientes.print()
+                                                print(Fore.CYAN+"----------------------------------")
+                                            except:
+                                                print(Fore.RED+"No hay clientes por atender.")
+                                        elif opcion2=="3":
+                                            try:
+                                                espera_promedio = seleccionado.clientes.espera_promedio()
+                                                atencion_promedio = seleccionado.clientes.atencion_promedio()
+                                                maximo = seleccionado.clientes.atencion_maxima()
+                                                minimo = seleccionado.clientes.atencion_minima()
+                                                maximo1 = seleccionado.clientes.espera_maxima()
+                                                minimo1 = seleccionado.clientes.espera_minima()
+                                                print(Fore.CYAN+"\n----------------------------------")
+                                                print(Fore.CYAN+"              TIEMPOS             ")
+                                                print(Fore.CYAN+"----------------------------------")
+                                                print(Fore.CYAN+" Tiempo promedio de espera:",espera_promedio)
+                                                print(Fore.CYAN+" Tiempo maximo de espera:",maximo1)
+                                                print(Fore.CYAN+" Tiempo minimo de espera:",minimo1)
+                                                print(Fore.CYAN+" Tiempo promedio de atencion:",atencion_promedio)
+                                                print(Fore.CYAN+" Tiempo maximo de atencion:",maximo)
+                                                print(Fore.CYAN+" Tiempo minimo de atencion:",minimo)
+                                                print(Fore.CYAN+"----------------------------------")
+                                            except:
+                                                print(Fore.RED+"No hay clientes por atender.")
+                                        elif opcion2=="4":
+                                            break
+                                        else:
+                                            print(Fore.RED+"Por favor seleccione una opcion valida.")
+                                elif opcion1 == '2':
+                                    print(Fore.MAGENTA+"\n----------------------------------")
+                                    print(Fore.MAGENTA+"  SOLUCIONES GUATEMALTECAS S.A.   ")
+                                    print(Fore.MAGENTA+"------TIEMPOS DE ESCRITORIOS------")
+                                    seleccionado.E_escritorios.print_activos()
+                                    print(Fore.MAGENTA+"PROXIMO ESCRITORIO EN SER DESACTIVADO")
+                                    seleccionado.pila.printer()
+                                    seleccionado.cola.graficar()
+                                    seleccionado.pila.graficar()
+                                    print("Vizu")
+                                    
+                                elif opcion1 == '3':
+                                    break
+                                else:
+                                    print(Fore.RED+"Por favor seleccione una opcion valida.")
+                            
+
 
                     elif opcion1 == "7":
                         break
@@ -113,7 +259,8 @@ class inicio:
                                 nuevoPA.E_escritorios.append(nuevoE)
                 for lTXml in EmpresasXml.iter('listaTransacciones'):
                     for transaccionXml in lTXml.iter('transaccion'):
-                        nuevaT = E_Transacciones(transaccionXml.attrib["id"], transaccionXml.find('nombre').text, transaccionXml.find('tiempoAtencion').text)
+                        contador7=int(nuevaE.E_transacciones.ultimo.counter)+1
+                        nuevaT = E_Transacciones(contador7,transaccionXml.attrib["id"], transaccionXml.find('nombre').text, transaccionXml.find('tiempoAtencion').text)
                         nuevaE.E_transacciones.append(nuevaT)
 
     def cargaArchivo_CI(self,ruta):
@@ -149,19 +296,32 @@ class inicio:
                             nuevaCola = Cola(contador3,clientXml.attrib["dpi"], clientXml.find('nombre').text,myRoundNumber, myRoundNumber2)
                             punto.clientes.append(nuevoC)
                             punto.cola.append(nuevaCola)
+                            punto.cola.graficar()
                     for escActivosXml in configXml.iter('escritoriosActivos'):
                         for escXml in escActivosXml.iter('escritorio'):
                             escrit = punto.E_escritorios.busquedaID(escXml.attrib["idEscritorio"])
                             if escrit is None:
                                 print(Fore.RED + "Error: No se encontro el Escritorio.")
                             else:
+                                conta=punto.pila.raiz.counter+1
                                 escrit.estado="activo"
-                                nuevaPila = Pila(escrit.counter, escrit.id,escrit.identificacion,escrit.encargado,"activo")
+                                nuevaPila = Pila(conta, escrit.id,escrit.identificacion,escrit.encargado,"activo")
                                 punto.pila.append(nuevaPila)
-                                
-                                nuevoCE = Clientes_escritorio(punto.cola.raiz.counter,punto.cola.raiz.dpi,punto.cola.raiz.nombre,punto.cola.raiz.tiempo_atencion,punto.cola.raiz.tiempo_espera)
-                                escrit.clientes_escritorio.append(nuevoCE)
-                                punto.cola.desencolar()
+                                punto.pila.graficar()
+                                if punto.cola.raiz is not None:
+                                    contador=escrit.clientes_escritorio.raiz.counter+1
+                                    nuevoCE = Clientes_escritorio(contador,punto.cola.raiz.dpi,punto.cola.raiz.nombre,punto.cola.raiz.tiempo_atencion,punto.cola.raiz.tiempo_espera)
+                                    escrit.clientes_escritorio.append(nuevoCE)
+                                    contadorrr=nuevaPila.clientes_escritorio_pila.ultimo.counter+1
+                                    nuevoCE = Clientes_escritorio_pila(contadorrr,punto.cola.raiz.dpi,punto.cola.raiz.nombre,punto.cola.raiz.tiempo_atencion,punto.cola.raiz.tiempo_espera)
+                                    nuevaPila.clientes_escritorio_pila.append(nuevoCE)
+                                    punto.cola.desencolar()
+                                    punto.cola.graficar()
+                                    cracl=punto.pila.proximo_atendido()
+                                    punto.cola.raiz.tiempo_espera=cracl
+                                    punto.cola.recalcular()
+                                else:
+                                    print(Fore.GREEN+"No hay clientes por atender, agregué un nuevo cliente")                        
 
     def opcion1(self):
         opcion2 = ""
@@ -182,16 +342,16 @@ class inicio:
                 subprocess.call([sys.executable, os.path.realpath("./inicio.py")]+sys.argv[1:])
             elif opcion2 == "2":
                 try:
-                    #nombreArchivo1 = input(Fore.BLUE+"Ingrese el nombre del archivo XML\n")
-                    ruta1 = './plantillaSusEmpresa.xml'#+nombreArchivo1
+                    nombreArchivo1 = input(Fore.BLUE+"Ingrese el nombre del archivo XML\n")
+                    ruta1 = './'+nombreArchivo1
                     self.cargaArchivo_E(ruta1)
                     print(Fore.GREEN+"Se cargo el archivo con exito!")
                 except:
                     print(Fore.RED+"Error: Inserte una ruta correcta\no archivo con formato de entrada Valido.")
             elif opcion2 == "3":
                 try:
-                    #nombreArchivo2 = input(Fore.BLUE+"Ingrese el nombre del archivo XML\n")
-                    ruta2 = './plantillaSusCliente.xml'#+nombreArchivo2
+                    nombreArchivo2 = input(Fore.BLUE+"Ingrese el nombre del archivo XML\n")
+                    ruta2 = './'+nombreArchivo2
                     self.cargaArchivo_CI(ruta2)
                     print(Fore.GREEN+"Se cargo el archivo con exito!")
                 except:
@@ -257,7 +417,8 @@ class inicio:
                                 break
                             else:
                                 print(Fore.RED+"Error: Solo se permite ingresar digitos")
-                        nuevaT = E_Transacciones(j, k, l)
+                        contador7=int(nuevaE.E_transacciones.ultimo.counter)+1
+                        nuevaT = E_Transacciones(contador7,j, k, l)
                         nuevaE.E_transacciones.append(nuevaT)
                     elif opcion3 =="3":
                         break
@@ -276,19 +437,20 @@ class inicio:
         print(Fore.LIGHTBLUE_EX+"----------------------------------")
         while True:
             a= input(Fore.LIGHTBLUE_EX+"Elija la empresa que desea gestionar:\n")
-            empresa = self.listaEmpresasDesdeXml.busqueda(int(a))
-            if empresa is None:
+            global empresa1
+            empresa1 = self.listaEmpresasDesdeXml.busqueda(int(a))
+            if empresa1 is None:
                 print(Fore.RED + "Error: Seleccione una opcion correcta.")
             else:
                 break
         print(Fore.MAGENTA+"\n----------------------------------")
         print(Fore.MAGENTA+"  SOLUCIONES GUATEMALTECAS S.A.   ")
         print(Fore.MAGENTA+"--------PUNTOS DE ATENCION--------")
-        empresa.puntos_atencion.print()
+        empresa1.puntos_atencion.print()
         print(Fore.MAGENTA+"----------------------------------")
         while True:
             b= input(Fore.MAGENTA+"Elija el punto de atencion que desea gestionar:\n")
-            punto = empresa.puntos_atencion.busqueda(int(b))
+            punto = empresa1.puntos_atencion.busqueda(int(b))
             if punto is None:
                 print(Fore.RED + "Error: Seleccione una opcion correcta.")
             else:
@@ -297,59 +459,102 @@ class inicio:
         return punto
     
     def estado_PA(self, seleccionado):
-        opcion2=""
-        while opcion2 != "Break":
-            print(Fore.MAGENTA+"\n----------------------------------")
-            print(Fore.MAGENTA+"  SOLUCIONES GUATEMALTECAS S.A.   ")
-            print(Fore.MAGENTA+"-------PUNTO DE ANTENCION------")
-            print(Fore.MAGENTA+"  1. ESCRITORIOS")
-            print(Fore.MAGENTA+"  2. CLIENTES EN ESPERA")
-            print(Fore.MAGENTA+"  3. GESTION DE TIEMPOS")
-            print(Fore.MAGENTA+"  4. VOLVER")
-            print(Fore.BLUE+"----------------------------------")
-            opcion2 = input(Fore.MAGENTA+"Seleccione una opcion del menu \n")
-            if opcion2 == '1':
-                activos=seleccionado.E_escritorios.busqueda_estado("activo")
-                inactivos=seleccionado.E_escritorios.busqueda_estado("inactivo")
-                print(Fore.CYAN+"\n----------------------------------")
-                print(Fore.CYAN+"            ESCRITORIOS           ")
-                print(Fore.CYAN+"----------------------------------")
-                print(Fore.CYAN+" Escritorios activos: ",activos)
-                print(Fore.CYAN+" Escritorios inactivos: ",inactivos)
-                print(Fore.CYAN+"----------------------------------")
-            elif opcion2=="2":
-                try:
-                    print(Fore.CYAN+"\n----------------------------------")
-                    print(Fore.CYAN+"       CLIENTES EN ESPERA         ")
-                    print(Fore.CYAN+"----------------------------------")
-                    seleccionado.cola.print()
-                    print(Fore.CYAN+"----------------------------------")
-                except:
-                    print(Fore.RED+"No hay clientes por atender.")
-            elif opcion2=="3":
-                try:
-                    espera_promedio = seleccionado.clientes.espera_promedio()
-                    atencion_promedio = seleccionado.clientes.atencion_promedio()
-                    maximo = seleccionado.clientes.atencion_maxima()
-                    minimo = seleccionado.clientes.atencion_minima()
-                    maximo1 = seleccionado.clientes.espera_maxima()
-                    minimo1 = seleccionado.clientes.espera_minima()
-                    print(Fore.CYAN+"\n----------------------------------")
-                    print(Fore.CYAN+"              TIEMPOS             ")
-                    print(Fore.CYAN+"----------------------------------")
-                    print(Fore.CYAN+" Tiempo promedio de espera:",espera_promedio)
-                    print(Fore.CYAN+" Tiempo maximo de espera:",maximo1)
-                    print(Fore.CYAN+" Tiempo minimo de espera:",minimo1)
-                    print(Fore.CYAN+" Tiempo promedio de atencion:",atencion_promedio)
-                    print(Fore.CYAN+" Tiempo maximo de atencion:",maximo)
-                    print(Fore.CYAN+" Tiempo minimo de atencion:",minimo)
-                    print(Fore.CYAN+"----------------------------------")
-                except:
-                    print(Fore.RED+"No hay clientes por atender.")
-            elif opcion2=="4":
+        opcion1=""
+        while opcion1 != "Break":
+            print(Fore.YELLOW+"\n----------------------------------")
+            print(Fore.YELLOW+"  SOLUCIONES GUATEMALTECAS S.A.   ")
+            print(Fore.YELLOW+"---------VIZUALIZAR ESTADO--------")
+            print(Fore.YELLOW+"  1. PUNTO DE ATENCION")
+            print(Fore.YELLOW+"  2. ESCRITORIOS ACTIVOS")
+            print(Fore.YELLOW+"  3. VOLVER")
+            print(Fore.YELLOW+"----------------------------------")
+            opcion1 = input(Fore.YELLOW+"Seleccione una opcion del menu \n")
+            if opcion1 == '1':
+                opcion2=""
+                while opcion2 != "Break":
+                    print(Fore.MAGENTA+"\n----------------------------------")
+                    print(Fore.MAGENTA+"  SOLUCIONES GUATEMALTECAS S.A.   ")
+                    print(Fore.MAGENTA+"-------PUNTO DE ANTENCION------")
+                    print(Fore.MAGENTA+"  1. ESCRITORIOS")
+                    print(Fore.MAGENTA+"  2. CLIENTES EN ESPERA")
+                    print(Fore.MAGENTA+"  3. GESTION DE TIEMPOS")
+                    print(Fore.MAGENTA+"  4. VOLVER")
+                    print(Fore.MAGENTA+"----------------------------------")
+                    opcion2 = input(Fore.MAGENTA+"Seleccione una opcion del menu \n")
+                    if opcion2 == '1':
+                        activos=seleccionado.E_escritorios.busqueda_estado("activo")
+                        inactivos=seleccionado.E_escritorios.busqueda_estado("inactivo")
+                        print(Fore.CYAN+"\n----------------------------------")
+                        print(Fore.CYAN+"            ESCRITORIOS           ")
+                        print(Fore.CYAN+"----------------------------------")
+                        print(Fore.CYAN+" Escritorios activos: ",activos)
+                        print(Fore.CYAN+" Escritorios inactivos: ",inactivos)
+                        print(Fore.CYAN+"----------------------------------")
+                    elif opcion2=="2":
+                        try:
+                            print(Fore.CYAN+"\n----------------------------------")
+                            print(Fore.CYAN+"       CLIENTES EN ESPERA         ")
+                            print(Fore.CYAN+"----------------------------------")
+                            seleccionado.cola.print()
+                            print(Fore.CYAN+"----------------------------------")
+                        except:
+                            print(Fore.RED+"No hay clientes por atender.")
+                    elif opcion2=="3":
+                        try:
+                            espera_promedio = seleccionado.clientes.espera_promedio()
+                            atencion_promedio = seleccionado.clientes.atencion_promedio()
+                            maximo = seleccionado.clientes.atencion_maxima()
+                            minimo = seleccionado.clientes.atencion_minima()
+                            maximo1 = seleccionado.clientes.espera_maxima()
+                            minimo1 = seleccionado.clientes.espera_minima()
+                            print(Fore.CYAN+"\n----------------------------------")
+                            print(Fore.CYAN+"              TIEMPOS             ")
+                            print(Fore.CYAN+"----------------------------------")
+                            print(Fore.CYAN+" Tiempo promedio de espera:",espera_promedio)
+                            print(Fore.CYAN+" Tiempo maximo de espera:",maximo1)
+                            print(Fore.CYAN+" Tiempo minimo de espera:",minimo1)
+                            print(Fore.CYAN+" Tiempo promedio de atencion:",atencion_promedio)
+                            print(Fore.CYAN+" Tiempo maximo de atencion:",maximo)
+                            print(Fore.CYAN+" Tiempo minimo de atencion:",minimo)
+                            print(Fore.CYAN+"----------------------------------")
+                        except:
+                            print(Fore.RED+"No hay clientes por atender.")
+                    elif opcion2=="4":
+                        break
+                    else:
+                        print(Fore.RED+"Por favor seleccione una opcion valida.")
+            elif opcion1 == '2':
+                print(Fore.MAGENTA+"\n----------------------------------")
+                print(Fore.MAGENTA+"  SOLUCIONES GUATEMALTECAS S.A.   ")
+                print(Fore.MAGENTA+"------TIEMPOS DE ESCRITORIOS------")
+                seleccionado.E_escritorios.print_activos()
+                print(Fore.MAGENTA+"PROXIMO ESCRITORIO EN SER DESACTIVADO")
+                seleccionado.pila.printer()
+                seleccionado.cola.graficar()
+                seleccionado.pila.graficar()
+                
+            elif opcion1 == '3':
                 break
             else:
                 print(Fore.RED+"Por favor seleccione una opcion valida.")
+
+    def pasar_cliente(self,seleccionado):
+        cracl=seleccionado.pila.proximo_atender()
+        crac=seleccionado.pila.proximo_atendido()
+        seleccionado.pila.recalcular(crac)
+        contadorr=cracl.clientes_escritorio_pila.ultimo.counter+1
+        nuevoCE1 = Clientes_escritorio_pila(contadorr,seleccionado.cola.raiz.dpi,seleccionado.cola.raiz.nombre,seleccionado.cola.raiz.tiempo_atencion,seleccionado.cola.raiz.tiempo_espera)
+        cracl.clientes_escritorio_pila.append(nuevoCE1)
+        res=seleccionado.E_escritorios.busquedaID(cracl.id)
+        contadorre=res.clientes_escritorio.ultimo.counter+1
+        nuevoCE2 = Clientes_escritorio(contadorre,seleccionado.cola.raiz.dpi,seleccionado.cola.raiz.nombre,seleccionado.cola.raiz.tiempo_atencion,seleccionado.cola.raiz.tiempo_espera)
+        res.clientes_escritorio.append(nuevoCE2)
+        seleccionado.cola.desencolar()
+        seleccionado.cola.graficar()
+        crac=seleccionado.pila.proximo_atendido()
+        seleccionado.cola.raiz.tiempo_espera=crac
+        seleccionado.cola.recalcular()
+        print(Fore.GREEN+"Se ha atendido al cliente con exito!")
 
 p1=inicio()        
 p1.menu()
